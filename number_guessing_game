@@ -1,0 +1,45 @@
+import random
+
+def get_int_guess(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Input is invalid, please enter a number 1 through 100")
+
+
+print("Welcome to the Number Guessing game")
+print("I'm thinking of a number between 1 and 100\n")
+num = random.randint(1,100)
+
+print("Please select the difficulty level:")
+print("1. Easy (10 Guesses)")
+print("2. Medium (5 Guesses)")
+print("3. Hard (3 Guesses)\n")
+
+difficulty = {"1":10,"2":5,"3":3}
+while (level := input("Enter your choice: ")) not in difficulty:
+    print("Invalid input, please try again")
+guesses = difficulty[level]
+
+print(f"You have selected level {level}!")
+print("Let's Begin!")
+
+count = 0
+win = False
+for i in range(guesses):
+    attempt = get_int_guess("Enter your guess: ")
+    count+=1
+    if(num < attempt):
+        print(f"The number I'm thinking is less than {attempt}")
+    elif(num > attempt):
+        print(f"The number I'm thinking is greater than {attempt}")
+    else:
+        print(f"The number is {num}!")
+        print("Congratulations! You win!")
+        print(f"You guessed correctly in {count} attempts!")
+        win = True
+        break
+
+if not win:
+    print(f"Sorry, the number was {num}.  Thank you for playing!")
